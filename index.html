@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta property="og:title"
+        content="CCM: Adding Conditional Controls to Text-to-Image Consistency Models" />
+    <meta property="og:url" content="https://swiftforce.github.io/CCM" />
+    <meta property="og:image" content="static/images/head.png" />
+    <meta property="og:image:width" content="2048" />
+    <meta property="og:image:height" content="1152" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <title>CCM</title>
+    <script>
+        var x = window.innerWidth;
+        function resizeFresh(){
+            if(x!=window.innerWidth)
+                location.reload();
+        }
+    </script>
+    <link rel="icon" type="image/x-icon" href="static/images/ccm-logo4.png">
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+    <link rel="stylesheet" href="static/css/bulma.min.css">
+    <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="static/css/index.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+    <script defer src="static/js/fontawesome.all.min.js"></script>
+    <script src="static/js/bulma-carousel.min.js"></script>
+    <script src="static/js/index.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/4.1.1/gradio.js"></script>
+</head>
+
+<body onresize="resizeFresh()">
+
+    <section class="hero banner">
+        <div class="hero-body">
+            <div class="container is-max-desktop">
+                <div class="columns is-centered">
+                    <div class="column has-text-centered">
+                        <h1 class="title is-1 publication-title">
+                            <i class="pixart-alpha-icon"></i>
+                            <span style="color: rgb(167, 175, 246);">CCM:</span><br />
+                            Adding Conditional Controls to Text-to-Image Consistency Models</h1>
+                        <div class="is-size-5 publication-authors">
+                            <!-- Paper authors -->
+                            <span class="author-block">
+                                <a href="https://scholar.google.com/citations?hl=en&user=8UUpq5oAAAAJ" target="_blank">Jie Xiao</a><sup>1</sup>,</span>
+                            <span class="author-block">
+                                <a href="https://scholar.google.com/citations?user=Mo_2YsgAAAAJ&hl=zh-CN" target="_blank">Kai Zhu</a><sup>2</sup>,</span>
+                            <span class="author-block">
+                                <a href="https://openreview.net/profile?id=~Han_Zhang16" target="_blank">Han Zhang</a><sup>2</sup>,</span>
+                            <span class="author-block">
+                                <a href="https://openreview.net/profile?id=~Zhiheng_Liu1" target="_blank">
+                                    Zhiheng
+                                    Liu</a><sup>1</sup>,
+                            </span>
+                            <span class="author-block">
+                                <a href="https://shenyujun.github.io/" target="_blank">
+                                    Yujun
+                                    Shen</a><sup>3</sup>,
+                            </span>
+                            <span class="author-block">
+                                <a href="https://scholar.google.com/citations?user=8zksQb4AAAAJ" target="_blank">
+                                    Yu
+                                    Liu</a><sup>2</sup>,</span>
+                            <span class="author-block">
+                                <a href="https://scholar.google.com/citations?user=tFNDn5EAAAAJ&hl=en" target="_blank">
+                                    Xueyang
+                                Fu</a><sup>1</sup>,</span>
+                            <span class="author-block">
+                                <a href="https://en.auto.ustc.edu.cn/2021/0616/c26828a513174/page.htm" target="_blank">
+                                    Zheng-Jun
+                                Zha</a><sup>1</sup></span>
+                        </div>
+
+                        <div class="is-size-5 publication-authors">
+                            <span class="author-block"><sup>1</sup>University of Science and Technology of China</span>
+                            &nbsp;<span class="author-block"><sup>2</sup>Alibaba Group</span>
+                            <span class="author-block"><sup>3</sup>Ant Group</span>
+                        </div>
+
+<!--                        <div class="column has-text-centered">-->
+<!--                            <div class="publication-links">-->
+<!--                                <span class="link-block">-->
+<!--                                    <a href="https://arxiv.org/pdf/2311.17002.pdf" target="_blank"-->
+<!--                                        class="external-link button is-normal is-rounded is-white">-->
+<!--                                        <span class="icon">-->
+<!--                                            <i class="fas fa-file-pdf"></i>-->
+<!--                                        </span>-->
+<!--                                        <span>Paper</span>-->
+<!--                                    </a>-->
+<!--                                </span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Paper abstract -->
+<!--    <section class="section hero is-light">-->
+<!--        <div class="container is-max-desktop">-->
+<!--            <div class="columns is-centered has-text-centered">-->
+<!--                <div class="column is-four-fifths">-->
+<!--                    <h2 class="title is-3">Abstract</h2>-->
+<!--                    <div class="content has-text-justified">-->
+<!--                        <p>-->
+<!--                        Consistency Models (CMs) have showed a promise in creating visual content efficiently and with high quality.-->
+<!--                            However, the way to add new conditional controls to the pretrained CMs has not been explored.-->
+<!--                            In this work, we consider adding controls by integrating a new by-pass ControlNet branch and present two alternative solutions to the training of ControlNet for CMs.-->
+<!--                            The first solution is based on an observation that ControlNet trained for diffusion models can be directly applied to CMs, achieving high-level semantic controls.-->
+<!--                            Therefore, we can train a ControlNet on diffusion models and transfer that ControlNet to CMs. But, this solution often fails to accomplish low-level fine controls and generates unrealistic images.-->
+<!--                            The second solution is to treat CMs as an independent class of generative models and train ControlNet from scratch using Consistency Training proposed by Song et al.-->
+<!--                            We study these two solutions across various conditional controls, including edge, depth, human pose, low-resolution image and masked image with text-to-image latent consistency models.-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </section>-->
+    <!-- End paper abstract -->
+
+    <section class="hero is-small">
+        <div class="hero-body">
+            <div class="container is-max-desktop">
+                <!-- <h2 class="title is-3">Samples generated by <i class="pixart-alpha-icon"></i><span style="color: rgb(72, 87, 220);">Ranni</span></h2> -->
+                <h2 class="title is-3">Visual Examples</h2>
+                <hr>
+                <p>
+                    <b>Images generated using our re-trained Text-to-Image CM with 4-step inference.</b>
+                </p>
+                <img loading="lazy" src="static/images/samples/wudyhewed92823.jpg" alt="count" />
+                <hr>
+                <p>
+                    <b>Controllable Generation using ControlNet trained with consistency training. NFEs=4.</b>
+                </p>
+                <img loading="lazy" src="static/images/samples/2784yre3g7fhr3.jpg" alt="count" />
+                <hr>
+                <p>
+                    <b>Controllable Generation using ControlNet trained on diffusion models. NFEs=4.</b>
+                </p>
+                <img loading="lazy" src="static/images/samples/csnhcjbsc329ed2.jpg" alt="count" />
+                <hr>
+            </div>
+        </div>
+    </section>
+
+
+    <!--BibTex citation -->
+<!--    <section class="section" id="BibTeX">-->
+<!--        <div class="container is-max-desktop content">-->
+<!--            <h2 class="title">BibTeX</h2>-->
+<!--            <pre><code>@article{Ranni2024,-->
+<!--    title={Ranni: Taming Text-to-Image Diffusion for Accurate Instruction Following}, -->
+<!--    author={Yutong Feng and Biao Gong and Di Chen and Yujun Shen and Yu Liu and Jingren Zhou},-->
+<!--    year={2023},-->
+<!--    eprint={2311.17002},-->
+<!--    archivePrefix={arXiv},-->
+<!--    primaryClass={cs.CV}-->
+<!--}</code></pre>-->
+<!--        </div>-->
+<!--    </section>-->
+    <!--End BibTex citation -->
+
+
+    <footer class="footer">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-8">
+                    <div class="content">
+                        <p>
+                            This page was built using the <a
+                                href="https://github.com/eliahuhorwitz/Academic-project-page-template"
+                                target="_blank">Academic Project Page Template</a> which was adopted from the <a
+                                href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+                            You are free to borrow the of this website, we just ask that you link back to this page in
+                            the footer. <br> This website is licensed under a <a rel="license"
+                                href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+                                Commons Attribution-ShareAlike 4.0 International License</a>.
+                        </p>
+<!--                        <p class="has-text-centered">Total clicks: <span id="busuanzi_value_site_pv"></span></p>-->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id = "logo" style="margin-top: 10px; text-align:center">
+	    <div align="center" style="margin:auto;padding-top:10px">
+            <div style="width:12%">
+            <script type="text/javascript" id="clustrmaps" src="//clustrmaps.com/map_v2.js?d=XDFRYt5cyxYi13To-PxyHuqLooENPIwVZ3W3slBoDSI&cl=ffffff&w=a"></script>
+            </div>
+        </div>
+     </div>
+    </footer>
+
+</body>
+
+</html>
